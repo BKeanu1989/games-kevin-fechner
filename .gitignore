@@ -1,0 +1,6 @@
+dist
+
+*.env
+!secrets-example.env
+
+privat
