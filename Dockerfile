@@ -2,6 +2,7 @@ FROM node:20 as frontend
 
 WORKDIR /app
 COPY ./vue-ui/*.json ./
+RUN rm ./package-lock.json
 COPY ./vue-ui/*.ts ./
 COPY ./vue-ui/*.html ./
 RUN ls -la

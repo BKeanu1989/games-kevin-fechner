@@ -1,6 +1,6 @@
 // const fs = require("fs")
 import fs from 'node:fs'
-console.log('post build')
+console.log('only really used for local development, not dockerfile, it should already do it')
 
 async function post_script() {
   fs.cp('./dist/index.html', '../games-go-blueprint/templates/index.html', (err) => {
