@@ -18,13 +18,21 @@ type Server struct {
 	db database.Service
 }
 
+type DbService struct {
+	port int
+
+	// db
+}
+
 func NewServer() *http.Server {
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
 	NewServer := &Server{
 		port: port,
 
-		db: database.New(),
+		// db: database.New(),
 	}
+
+	// NewServer.db.
 
 	// Declare Server config
 	server := &http.Server{

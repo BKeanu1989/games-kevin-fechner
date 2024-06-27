@@ -17,12 +17,12 @@ FROM golang:latest as backend
 WORKDIR /app
 RUN mkdir -p ./static/assets
 RUN mkdir -p ./assets
-COPY ./games-go-blueprint/go.mod ./
-COPY ./games-go-blueprint/go.sum ./
-COPY ./games-go-blueprint/.env ./
-COPY ./games-go-blueprint/cmd ./cmd
-COPY ./games-go-blueprint/internal ./internal
-# COPY ./games-go-blueprint/server ./server
+COPY ./games-go/go.mod ./
+COPY ./games-go/go.sum ./
+COPY ./games-go/.env ./
+COPY ./games-go/cmd ./cmd
+COPY ./games-go/internal ./internal
+# COPY ./games-go/server ./server
 COPY --from=frontend /app/dist/index.html ./templates/index.html
 COPY --from=frontend /app/dist ./ui
 
@@ -34,6 +34,7 @@ COPY ./vue-ui/src/output.css /assets
 # COPY ./games-go-blueprint/.env ./
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o games-kevin-fechner ./cmd/api/main.go
+# RUN CGO_ENABLED=1 GOOS=linux go build -o games-kevin-fechner ./cmd/api/main.go
 
 
 FROM alpine:latest

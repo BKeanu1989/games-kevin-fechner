@@ -34,11 +34,22 @@ var (
 )
 
 func CreateTables() {
+	db, err := sql.Open("sqlite3", dburl)
+	if err != nil {
+		// This will not be a connection error, but a DSN parse error or
+		// another initialization error.
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	fmt.Printf("%v", db)
+
+	fmt.Print("init tables \n")
 	createGamesTable := `
 		CREATE TABLE IF NOT EXISTS games (
-			id INTEGER PRIMARY KEY AUTOINCREMENT,
-			name TEXT NOT NULL,
-			description TEXT NOT NULL
+			"id" INTEGER PRIMARY KEY AUTOINCREMENT,
+			"name" TEXT NOT NULL,
+			"description" TEXT NOT NULL
 		);
 	`
 
@@ -79,42 +90,86 @@ func CreateTables() {
 		)
 	`
 
-	dbInstance.db.Exec(createGamesTable)
-	dbInstance.db.Exec(createCardsTable)
-	dbInstance.db.Exec(createRoomsTable)
-	dbInstance.db.Exec(createUserTable)
-	dbInstance.db.Exec(createUserRooms)
+	statement, err := db.Prepare(createGamesTable)
+	if err != nil {
+		fmt.Println("error creating statement for games table")
+		log.Fatal(err)
+	}
+	_, err = statement.Exec()
+	if err != nil {
+		log.Fatal("error creating games table")
+	}
+	_, err = db.Exec(createCardsTable)
+	if err != nil {
+		log.Fatal("error creating cards table")
+	}
+	_, err = db.Exec(createRoomsTable)
+	if err != nil {
+		fmt.Println("error creating rooms table")
+	}
+	_, err = db.Exec(createUserTable)
+	if err != nil {
+		fmt.Println("error creating users table")
+	}
+	_, err = db.Exec(createUserRooms)
+	if err != nil {
+		fmt.Println("error creating userrooms table")
+	}
+
 }
 
-func New() Service {
+func New() *service {
+	fmt.Println("init db")
+
 	// Reuse Connection
 	if dbInstance != nil {
 		return dbInstance
 	}
 
-	// fmt.Print("new database...")
+	// fmt.Print("new database...")init d
 	// fmt.Print(dburl)
 
 	db, err := sql.Open("sqlite3", dburl)
-
 	if err != nil {
 		// This will not be a connection error, but a DSN parse error or
 		// another initialization error.
 		log.Fatal(err)
 	}
-	_, err = os.Stat(dburl)
-	if err == nil {
-		fmt.Print("db file exists")
 
-	} else {
-		fmt.Print("there was an error...")
-		fmt.Printf("%v", err)
-	}
+	// defer db.Close()
+
+	// dir, err := os.Getwd()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	// fmt.Printf("current working directory is: %s \n", dir)
+
+	// _, err = os.Stat(dburl)
+	// if err == nil {
+	// 	fmt.Print("db file exists \n")
+
+	// } else {
+	// 	fmt.Print("there was an error...")
+	// 	fmt.Printf("%v", err)
+	// }
 
 	dbInstance = &service{
 		db: db,
 	}
 	return dbInstance
+}
+
+func NewHandler() *sql.DB {
+	db, err := sql.Open("sqlite3", dburl)
+	if err != nil {
+		// This will not be a connection error, but a DSN parse error or
+		// another initialization error.
+		log.Fatal(err)
+	}
+
+	return db
+
 }
 
 // Health checks the health of the database connection by pinging the database.

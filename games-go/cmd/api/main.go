@@ -14,13 +14,17 @@ func main() {
 	fmt.Printf("init server: %s \n", os.Getenv("PORT"))
 	server := server.NewServer()
 
-	fmt.Println("init db")
-	database.New()
+	// database.New()
 	database.CreateTables()
+
+	fmt.Print("tables and co should be initialized")
 
 	err := server.ListenAndServe()
 	if err != nil {
 		panic(fmt.Sprintf("cannot start server: %s", err))
 	}
 	fmt.Print("server should be running")
+
+	// database.
+
 }
