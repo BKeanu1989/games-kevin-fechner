@@ -33,13 +33,16 @@ COPY ./vue-ui/dist/assets /assets
 COPY ./vue-ui/src/output.css /assets
 # COPY ./games-go-blueprint/.env ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o games-kevin-fechner ./cmd/api/main.go
-# RUN CGO_ENABLED=1 GOOS=linux go build -o games-kevin-fechner ./cmd/api/main.go
+RUN apt-get update && apt-get install -y build-essential
+
+# RUN CGO_ENABLED=0 GOOS=linux go build -o games-kevin-fechner ./cmd/api/main.go
+RUN CGO_ENABLED=1 GOOS=linux go build -o games-kevin-fechner ./cmd/api/main.go
 
 
 FROM alpine:latest
 
 WORKDIR /app
+RUN apk add --no-cache --update gcc libc6-compat
 RUN mkdir ./assets
 # Copy the binary to the production image from the builder stage.
 COPY --from=backend /app/games-kevin-fechner .
@@ -51,6 +54,10 @@ COPY --from=backend /app/.env ./.env
 # FROM alpine:latest
 
 # RUN apk update
+# RUN apk add --no-cache --update go gcc g++
+
+
+# run apk 
 # RUN apk add curl bash nvim
 
 

@@ -67,7 +67,7 @@ func CreateTables() {
 	createRoomsTable := `
 		CREATE TABLE IF NOT EXISTS rooms (
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
-			name TEXT NOT NULL,
+			name TEXT NOT NULL
 
 		)
 	`
