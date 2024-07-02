@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  backend: 
+    image: d1d07493195ae3623b7f2509d6aab5c7e17381681cf78c913a34a762ea0925c0
+    restart: always
+    ports:  
+      - 8080:8080
+    volumes:
+      - ./vue-ui/dist/index.html:/app/templates/index.html
+      - ./vue-ui/dist/assets:/app/assets
+
+
+
+# volumes:
