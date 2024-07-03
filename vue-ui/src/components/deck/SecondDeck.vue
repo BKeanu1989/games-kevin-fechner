@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
 import type { Deck } from "@/types/index"
+import SimpleComposableCard from './SimpleComposableCard.vue';
 const props = defineProps<{
     cards?: Deck[],
 }>()
@@ -15,6 +16,9 @@ const props = defineProps<{
         <div v-for="card in props.cards" class="second-deck--single" :key="card.name">
             | {{ card }} |
         </div>
+    </section>
+    <section>
+        <SimpleComposableCard />
     </section>
 </template>
 

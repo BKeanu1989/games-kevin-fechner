@@ -16,6 +16,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/lobby">Lobby</RouterLink>
         <RouterLink to="/create-card">Create Card</RouterLink>
+        <RouterLink to="/game">Game Room</RouterLink>
       </nav>
     </div>
   </header>
