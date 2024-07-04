@@ -2,14 +2,25 @@ version: '3.8'
 
 services:
   backend: 
-    image: 0202a2aca5b64121f4ab99d2ac166f08be2ae3a50d35db0e0f7f3bb82c1c02f0
-    restart: always
+    image: f187d0ad2c591a5ef7ee87358189b58b48e4c8f09ced6514056f9fb5f71b7ce0
+    # restart: always
     ports:  
       - 8080:8080
     volumes:
       - ./vue-ui/dist/index.html:/app/templates/index.html
       - ./vue-ui/dist/assets:/app/assets
 
+  air:
+    image: cosmtrek/air
+    working_dir: /app
+    volumes:
+      - ./games-go/:/app/
+    environment:
+      - name=value
+      - ENV_A=foobar
 
+
+    # ports:
+    #   - 8080:8080
 
 # volumes:

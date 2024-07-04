@@ -23,6 +23,11 @@
 - grpc?
 
 
+--
+## Todos
+- docker env var for own docker image ... 
+
+
 
 
 ## Stack

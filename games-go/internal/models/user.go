@@ -3,6 +3,7 @@ package models
 
 import (
 	"database/sql"
+	"fmt"
 )
 
 type User struct {
@@ -12,6 +13,7 @@ type User struct {
 }
 
 func CreateUserTable(db *sql.DB) error {
+	fmt.Print("run create user table")
 	query := `
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,

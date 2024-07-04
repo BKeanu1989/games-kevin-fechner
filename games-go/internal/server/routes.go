@@ -2,7 +2,6 @@ package server
 
 import (
 	"encoding/json"
-	"games-go-blueprint/internal/database"
 	"games-go-blueprint/internal/models"
 	"log"
 	"net/http"
@@ -67,13 +66,59 @@ func (s *Server) HelloWorldHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) testHandler(w http.ResponseWriter, r *http.Request) {
-	db := database.GetConnection()
+	// fmt.Print("init test handler")
 
-	_, err := models.AddUser(db, "devKev", "test@test.de")
+	db := s.db.GetConnection()
+	if db == nil {
+		log.Fatalf("no db connection given")
+	}
+	// fmt.Print("we are past connection")
+	// fmt.Printf("%v", db)
+
+	models.AddUser(db, "devkev", "test@test.de")
+
+	rows, err := db.Query("SELECT * FROM users")
+	if err != nil {
+		// log.Fatalf("couldnt run describe with v: %s", err.Error())
+		_, _ = w.Write([]byte("could run describe users"))
+		w.WriteHeader(http.StatusInternalServerError)
+	}
+	defer rows.Close()
+	// fmt.Printf("we are past first query: %v", res)
+
+	for rows.Next() {
+		var id int
+		var name string
+		var email string
+		err = rows.Scan(&id, &name, &email)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(id, name, email)
+	}
+	err = rows.Err()
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	// _, err := models.AddUser(db, "devKev", "test@test.de")
+	if err != nil {
+		log.Fatal(err)
+		w.Write([]byte(err.Error()))
+
+	}
+
+	resp := make(map[string]string)
+	resp["message"] = "Test end handler"
+
+	jsonResp, err := json.Marshal(resp)
+	if err != nil {
+		log.Fatalf("error handling JSON marshal. Err: %v", err)
+		w.Write([]byte(err.Error()))
+
+	}
+
+	_, _ = w.Write(jsonResp)
 }
 
 func (s *Server) gameHandler(w http.ResponseWriter, r *http.Request) {

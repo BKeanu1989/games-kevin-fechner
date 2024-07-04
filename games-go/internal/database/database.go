@@ -22,6 +22,8 @@ type Service interface {
 	// Close terminates the database connection.
 	// It returns an error if the connection cannot be closed.
 	Close() error
+
+	GetConnection() *sql.DB
 }
 
 type service struct {
@@ -33,7 +35,7 @@ var (
 	dbInstance *service
 )
 
-func CreateTables() {
+func _CreateTables() {
 	db, err := sql.Open("sqlite3", dburl)
 	if err != nil {
 		// This will not be a connection error, but a DSN parse error or
@@ -126,33 +128,12 @@ func New() *service {
 		return dbInstance
 	}
 
-	// fmt.Print("new database...")init d
-	// fmt.Print(dburl)
-
 	db, err := sql.Open("sqlite3", dburl)
 	if err != nil {
 		// This will not be a connection error, but a DSN parse error or
 		// another initialization error.
 		log.Fatal(err)
 	}
-
-	// defer db.Close()
-
-	// dir, err := os.Getwd()
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// fmt.Printf("current working directory is: %s \n", dir)
-
-	// _, err = os.Stat(dburl)
-	// if err == nil {
-	// 	fmt.Print("db file exists \n")
-
-	// } else {
-	// 	fmt.Print("there was an error...")
-	// 	fmt.Printf("%v", err)
-	// }
 
 	dbInstance = &service{
 		db: db,
@@ -161,6 +142,11 @@ func New() *service {
 }
 
 func NewHandler() *sql.DB {
+
+	if dbInstance != nil {
+		return dbInstance.db
+	}
+
 	db, err := sql.Open("sqlite3", dburl)
 	if err != nil {
 		// This will not be a connection error, but a DSN parse error or
@@ -171,9 +157,9 @@ func NewHandler() *sql.DB {
 	return db
 }
 
-func GetConnection() *sql.DB {
-	if dbInstance != nil {
-		return dbInstance.db
+func (s *service) GetConnection() *sql.DB {
+	if s != nil {
+		return s.db
 	}
 
 	// return nil
