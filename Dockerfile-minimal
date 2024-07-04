@@ -21,6 +21,7 @@ COPY ./games-go/go.sum ./
 COPY ./games-go/.env ./
 COPY ./games-go/cmd ./cmd
 COPY ./games-go/internal ./internal
+# COPY ./games-go/models ./models
 # COPY --from=frontend /app/dist/index.html ./templates/index.html
 # COPY --from=frontend /app/dist ./ui
 

@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   backend: 
-    image: d1d07493195ae3623b7f2509d6aab5c7e17381681cf78c913a34a762ea0925c0
+    image: 0202a2aca5b64121f4ab99d2ac166f08be2ae3a50d35db0e0f7f3bb82c1c02f0
     restart: always
     ports:  
       - 8080:8080

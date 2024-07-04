@@ -2,6 +2,8 @@ package server
 
 import (
 	"encoding/json"
+	"games-go-blueprint/internal/database"
+	"games-go-blueprint/internal/models"
 	"log"
 	"net/http"
 	"text/template"
@@ -25,6 +27,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	r.Get("/", s.AppHandler)
 
 	r.Get("/health", s.healthHandler)
+	r.Get("/test", s.testHandler)
 	// r.Get("/lobby", s.)
 
 	r.Get("/websocket", s.websocketHandler)
@@ -61,6 +64,20 @@ func (s *Server) HelloWorldHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	_, _ = w.Write(jsonResp)
+}
+
+func (s *Server) testHandler(w http.ResponseWriter, r *http.Request) {
+	db := database.GetConnection()
+
+	_, err := models.AddUser(db, "devKev", "test@test.de")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+}
+
+func (s *Server) gameHandler(w http.ResponseWriter, r *http.Request) {
+
 }
 
 func (s *Server) healthHandler(w http.ResponseWriter, r *http.Request) {

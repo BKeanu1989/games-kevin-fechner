@@ -169,7 +169,15 @@ func NewHandler() *sql.DB {
 	}
 
 	return db
+}
 
+func GetConnection() *sql.DB {
+	if dbInstance != nil {
+		return dbInstance.db
+	}
+
+	// return nil
+	return New().db
 }
 
 // Health checks the health of the database connection by pinging the database.

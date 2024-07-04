@@ -29,7 +29,7 @@ func NewServer() *http.Server {
 	NewServer := &Server{
 		port: port,
 
-		// db: database.New(),
+		db: database.New(),
 	}
 
 	// NewServer.db.
