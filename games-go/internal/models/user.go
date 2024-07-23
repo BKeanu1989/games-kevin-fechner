@@ -13,13 +13,14 @@ type User struct {
 }
 
 func CreateUserTable(db *sql.DB) error {
-	fmt.Print("run create user table")
+	fmt.Println("run create user table")
 	query := `
-    CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        email TEXT NOT NULL UNIQUE
-    );`
+		CREATE TABLE IF NOT EXISTS users (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name TEXT NOT NULL,
+			email TEXT NOT NULL
+    )
+`
 
 	_, err := db.Exec(query)
 	if err != nil {

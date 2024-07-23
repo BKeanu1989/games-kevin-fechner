@@ -23,7 +23,7 @@ func main() {
 		log.Fatal("couldnt get db")
 	}
 
-	models.CreateUserTable(service.GetConnection())
+	models.CreateAllTables(service.GetConnection())
 
 	fmt.Print("tables and co should be initialized")
 
@@ -31,7 +31,7 @@ func main() {
 	if err != nil {
 		panic(fmt.Sprintf("cannot start server: %s", err))
 	}
-	fmt.Print("server should be running")
+	fmt.Print("server running")
 
 	// database.
 

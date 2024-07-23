@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-// import './output.css'
 // import HelloWorld from './components/HelloWorld.vue'
+import LightDarkModeSwitcher from './components/LightDarkModeSwitch.vue'
+
 </script>
 
 <template>
@@ -9,8 +10,6 @@ import { RouterLink, RouterView } from 'vue-router'
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <!-- <HelloWorld msg="You did it!" /> -->
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
@@ -22,6 +21,10 @@ import { RouterLink, RouterView } from 'vue-router'
   </header>
 
   <RouterView />
+  <footer>
+    <p class="test text-slate-700">some tw text</p>
+    <LightDarkModeSwitcher />
+  </footer>
 </template>
 
 <style scoped>

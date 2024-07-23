@@ -47,3 +47,14 @@ clean up binary from the last build
 ```bash
 make clean
 ```
+
+# Personal Notes
+
+Planned features: 
+- secret / passkey
+
+
+## Todos
+- Dark mode / tailwind css
+- vue url/server routing
+- 

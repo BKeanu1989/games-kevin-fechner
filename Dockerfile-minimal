@@ -18,7 +18,6 @@ FROM golang:latest as backend
 WORKDIR /app
 COPY ./games-go/go.mod ./
 COPY ./games-go/go.sum ./
-COPY ./games-go/.env ./
 COPY ./games-go/cmd ./cmd
 COPY ./games-go/internal ./internal
 # COPY ./games-go/models ./models
@@ -36,6 +35,7 @@ RUN CGO_ENABLED=1 GOOS=linux go build -o /app/games-kevin-fechner ./cmd/api/main
 FROM debian:stable-slim
 
 WORKDIR /app
+COPY ./games-go/.env ./
 
 # Copy the binary and other necessary files to the production image
 COPY --from=backend /app/games-kevin-fechner /app/games-kevin-fechner
