@@ -19,7 +19,9 @@ const isImageToUpload = ref(false)
                 <i>in the near future</i>
                 <div class="group">
                     <label for="text-input">Text</label>
-                    <input class="" id="text-input" v-model="textInput1" />
+                    <input
+                        class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400"
+                        id="text-input" v-model="textInput1" />
                 </div>
                 <div class="group">
                     <label for="text-input-2">Text</label>

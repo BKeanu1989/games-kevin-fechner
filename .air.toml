@@ -1,0 +1,9 @@
+[build]
+  bin = "tmp\\main.exe"
+  cmd = "CGO_ENABLED=1 GOOS=linux go build -o /app/games-kevin-fechner ./cmd/api/main.go"
+  run_after_build = "chmod +x /app/games-kevin-fechner "
+  exclude_dir = ["vendor"]
+  include_extension = ["go"]
+  dir = "/app"
+[log]
+  level = "debug"

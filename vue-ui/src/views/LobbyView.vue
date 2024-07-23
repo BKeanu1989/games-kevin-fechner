@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ChooseYourGame from '@/components/ChooseYourGame.vue';
 import { onUnmounted, ref } from 'vue';
 
 // @ts-nocheck
@@ -49,7 +50,7 @@ const sendMessage = (message: any) => {
     <main>
         <h1>Lobby</h1>
         <p>
-            Choose your games and lobby size here
+            <ChooseYourGame />
             <br />
             or enter a room
         </p>

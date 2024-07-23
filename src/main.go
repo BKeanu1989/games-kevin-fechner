@@ -29,6 +29,11 @@ type App struct {
 }
 
 func (a *App) Start() {
+	fmt.Print("Deprecating!!!!")
+	fmt.Print("Deprecating!!!!")
+	fmt.Print("Deprecating!!!!")
+	fmt.Print("Deprecating!!!!")
+
 	addr := fmt.Sprintf(":%s", a.Port)
 	log.Printf("Starting app on %s", addr)
 	log.Fatal(http.ListenAndServe(addr, nil))

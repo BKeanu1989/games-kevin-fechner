@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue'
+import LightDarkModeSwitcher from './components/LightDarkModeSwitch.vue'
+
 </script>
 
 <template>
@@ -8,18 +10,21 @@ import HelloWorld from './components/HelloWorld.vue'
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <!-- <HelloWorld msg="You did it!" /> -->
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/lobby">Lobby</RouterLink>
         <RouterLink to="/create-card">Create Card</RouterLink>
+        <RouterLink to="/game">Game Room</RouterLink>
       </nav>
     </div>
   </header>
 
   <RouterView />
+  <footer>
+    <p class="test text-slate-700">some tw text</p>
+    <LightDarkModeSwitcher />
+  </footer>
 </template>
 
 <style scoped>
